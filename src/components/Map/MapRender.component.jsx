@@ -1,4 +1,8 @@
+import React from "react";
 import Info from "../Info/Info.component";
+// Redux
+import { useSelector } from "react-redux";
+
 // React-leaflet
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -13,23 +17,34 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const Map = () => {
+const MapRender = () => {
+  const { userData, status } = useSelector((state) => state.requestUserData);
+  
+  const lat = userData.lat;
+  const lng = userData.lng;
+
+  if(status === 'loading') return 'Loading...'
+  
   return (
-    <>
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+    <React.Fragment>
+      <MapContainer
+        center={[lat, lng]}
+        zoom={16}
+        scrollWheelZoom={true}
+      >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]}>
+        <Marker position={[lat, lng]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
       </MapContainer>
       <Info />
-    </>
+    </React.Fragment>
   );
 };
 
-export default Map;
+export default MapRender;
