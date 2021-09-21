@@ -52,10 +52,11 @@ const Header = () => {
         dispatch(
           requestUserDataSuccess({
             ip,
+            country: location.country,
+            city: location.city,
             region: location.region,
             timeZone: location.timezone,
             postalcode: location.postalcode,
-            city: location.city,
             lat: location.lat,
             lng: location.lng,
             isp,
@@ -74,9 +75,11 @@ const Header = () => {
     <div className="header-container">
       <h1>IP Address Tracker</h1>
       <form
-        action="GET"
         className="form-container"
-        onSubmit={() => ipGeolocationDataFetch}
+        onSubmit={(e) => {
+          e.preventDefault();
+          ipGeolocationDataFetch();
+        }}
       >
         <div className="input-container">
           <input
@@ -86,7 +89,10 @@ const Header = () => {
             onChange={(e) => setValue(e.target.value)}
           />
         </div>
-        <div className="submit-arrow-container">
+        <div
+          className="submit-arrow-container"
+          onClick={() => ipGeolocationDataFetch()}
+        >
           <AiOutlineRight />
         </div>
       </form>

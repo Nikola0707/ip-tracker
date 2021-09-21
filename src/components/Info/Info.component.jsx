@@ -17,7 +17,7 @@ const Info = () => {
       <div className="border-left-right">
         <div className="title">
           <p>LOCATION</p>
-          <div className="value">{userData.city}</div>
+          <div className="value">{userData.city}, {userData.country} {userData.postalcode}</div>
         </div>
       </div>
       <div className="border-right">

@@ -42,6 +42,7 @@ const MapRender = () => {
           </Popup>
         </Marker>
       </MapContainer>
+      
       <Info />
     </React.Fragment>
   );
